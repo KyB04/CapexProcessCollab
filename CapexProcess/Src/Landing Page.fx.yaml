@@ -1,0 +1,142 @@
+"'Landing Page' As screen":
+    BackgroundImage: =
+    Height: =Max(App.Height, App.DesignHeight)
+    ImagePosition: =ImagePosition.Stretch
+    Orientation: =If('Landing Page'.Width < 'Landing Page'.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= 'Landing Page'.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    Image7 As image:
+        Height: =439
+        HoverBorderColor: =ColorFade(Image7.BorderColor, 20%)
+        HoverFill: =ColorFade(Image7.Fill, 20%)
+        Image: =logo
+        PressedBorderColor: =ColorFade(Image7.BorderColor, -20%)
+        PressedFill: =ColorFade(Image7.Fill, -20%)
+        Width: =681
+        X: =213
+        ZIndex: =2
+
+    HtmlText1 As htmlViewer:
+        Color: =RGBA(172, 62, 11, 1)
+        Font: =Font.'Segoe UI'
+        Height: =33
+        HoverBorderColor: =HtmlText1.BorderColor
+        HtmlText: ="<b><font color=black>Hello</font></b>"
+        PressedBorderColor: =HtmlText1.BorderColor
+        Size: =12
+        Visible: =HtmlText1_1.Visible
+        Width: =110
+        X: =625
+        Y: =325
+        ZIndex: =3
+
+    HtmlText1_1 As htmlViewer:
+        Font: =Font.'Segoe UI'
+        Height: =39
+        HoverBorderColor: =HtmlText1_1.BorderColor
+        HtmlText: =User().FullName
+        PressedBorderColor: =HtmlText1_1.BorderColor
+        Size: =15
+        Visible: =If(Len(UserVar)>0, true, false)
+        Width: =267
+        X: =625
+        Y: =344
+        ZIndex: =4
+
+    Label1 As label:
+        Align: =Align.Center
+        Color: =RGBA(0, 18, 107, 1)
+        FocusedBorderColor: =Label1.BorderColor
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =84
+        HoverBorderColor: =Label1.BorderColor
+        HoverColor: =Label1.Color
+        HoverFill: =Label1.Fill
+        PressedBorderColor: =Label1.BorderColor
+        PressedColor: =Label1.Color
+        PressedFill: =Label1.Fill
+        Size: =26
+        Text: |-
+            ="CAPEX PROCESS 
+            KNOWLEDGE LIBRARY"
+        Width: =1123
+        X: =6
+        Y: =404
+        ZIndex: =6
+
+    Button1 As button:
+        BorderColor: =ColorFade(Button1.Fill, -15%)
+        BorderStyle: =BorderStyle.None
+        Fill: =RGBA(102, 182, 227, 1)
+        FocusedBorderColor: =Button1.BorderColor
+        Font: =Font.'Segoe UI'
+        HoverBorderColor: =ColorFade(Button1.BorderColor, 20%)
+        HoverFill: =ColorFade(RGBA(7, 175, 127, 1), -20%)
+        OnSelect: |-
+            =Switch(
+                true,
+                varScreenID = 2,
+                Navigate(
+                    'IMS Library_3',
+                    ScreenTransition.Fade
+                ),
+                varScreenID = 4,
+                Navigate(
+                    'IMS Library_4',
+                    ScreenTransition.Fade
+                ),
+                Navigate(
+                    'IMS Library_3',
+                    ScreenTransition.Fade
+                )
+            )
+        PressedBorderColor: =Button1.Fill
+        PressedColor: =ColorFade(RGBA(255,255,255,1), -5%)
+        PressedFill: =ColorFade(RGBA(7,175,127,1), -5%)
+        Size: =18
+        Text: ="Continue"
+        Width: =300
+        X: =418
+        Y: =509
+        ZIndex: =7
+
+    "'TXT 1 B_1' As label":
+        Color: =RGBA(149, 149, 149, 1)
+        FocusedBorderColor: ='TXT 1 B_1'.BorderColor
+        FontWeight: =FontWeight.Lighter
+        Height: =20
+        HoverBorderColor: ='TXT 1 B_1'.BorderColor
+        HoverColor: ='TXT 1 B_1'.Color
+        HoverFill: ='TXT 1 B_1'.Fill
+        PaddingRight: =4.44
+        PaddingTop: =4.44
+        PressedBorderColor: ='TXT 1 B_1'.BorderColor
+        PressedColor: ='TXT 1 B_1'.Color
+        PressedFill: ='TXT 1 B_1'.Fill
+        Size: =7.5
+        Text: ="v3.1.5"
+        Width: =346.67
+        X: =6
+        Y: =620
+        ZIndex: =8
+
+    Image3_10 As image:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =2
+        FocusedBorderColor: =Image3_10.BorderColor
+        Height: =33
+        HoverBorderColor: =ColorFade(Image3_10.BorderColor, 20%)
+        HoverFill: =ColorFade(Image3_10.Fill, 20%)
+        Image: =image001
+        OnSelect: =If(ToggleThis, Set(ToggleThis, false), Set(ToggleThis, true))
+        PressedBorderColor: =ColorFade(Image3_10.BorderColor, -20%)
+        PressedFill: =ColorFade(Image3_10.Fill, -20%)
+        Tooltip: ="Home"
+        Width: =80
+        X: =527
+        Y: =587
+        ZIndex: =9
+

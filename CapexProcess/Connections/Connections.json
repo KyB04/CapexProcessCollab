@@ -1,0 +1,163 @@
+{
+  "09af9abc-1bb7-4008-870a-81c615548cb0": {
+    "connectionParameters": {
+      "sku": "Enterprise",
+      "workFlowCallbackUri": "https://prod-15.southeastasia.logic.azure.com:443/workflows/0d32ee1e9dee45bdad9875d9cb4e34a6/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=7p9UeEz4hUlbESHpHNJuEKj8dCHrRgKINqH3oTZlFSE",
+      "workflowEndpoint": "/subscriptions/c44298d0-c055-4569-9fb2-6ab8693eb98a/resourceGroups/AAAB3D2ACD3E43C5933E768366EBB01F-7CFA3B4540EB47648422F2DED328B8A4/providers/Microsoft.Logic/workflows/78ba2e0f-63ba-43fa-95d5-e98908a65193",
+      "workflowName": "78ba2e0f-63ba-43fa-95d5-e98908a65193",
+      "workflowPath": "/subscriptions/c44298d0-c055-4569-9fb2-6ab8693eb98a/resourceGroups/AAAB3D2ACD3E43C5933E768366EBB01F-7CFA3B4540EB47648422F2DED328B8A4/providers/Microsoft.Logic/workflows/78ba2e0f-63ba-43fa-95d5-e98908a65193"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Logic flows",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1615/1.0.1615.3163/logicflows/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_logicflows",
+      "parameterHints": {
+        "952d7938-3e5b-4179-a8a1-c04a6093a761": {
+          "value": "shared_sharepointonline"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "78ba2e0f-63ba-43fa-95d5-e98908a65193"
+        }
+      },
+      "parameterHintsV2": {
+        "shared_sharepointonline": {
+          "value": "952d7938-3e5b-4179-a8a1-c04a6093a761"
+        },
+        "workflowEntityId": {},
+        "workflowName": {
+          "value": "78ba2e0f-63ba-43fa-95d5-e98908a65193"
+        }
+      }
+    },
+    "datasets": {},
+    "dataSources": [
+      "PowerAppsbutton"
+    ],
+    "dependencies": {
+      "shared_sharepointonline": "952d7938-3e5b-4179-a8a1-c04a6093a761"
+    },
+    "dependents": [],
+    "id": "09af9abc-1bb7-4008-870a-81c615548cb0"
+  },
+  "13125d34-6fc3-4581-a2c7-48d8199b066e": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1623/1.0.1623.3210/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://manilawater.sharepoint.com/sites/ContinousImprovement": {
+        "dataSources": {
+          "CAPEX Process Repository": {
+            "tableName": "080e4c8e-2d95-4a45-b889-6bac4f585163"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "CAPEX Process Repository"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "13125d34-6fc3-4581-a2c7-48d8199b066e"
+  },
+  "1e2a93d3-46ac-42da-a044-ab323299f490": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1623/1.0.1623.3210/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://manilawater.sharepoint.com/sites/ContinousImprovement": {
+        "dataSources": {
+          "PDF Repo": {
+            "tableName": "f043afbc-b5ba-4162-b09d-f2eddc4dd46b"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Departmental_Procedures",
+      "PDF Repo",
+      "CAPEX Process Repository",
+      "Icons",
+      "Procedure_List_1",
+      "Pillars_reference"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "1e2a93d3-46ac-42da-a044-ab323299f490"
+  },
+  "952d7938-3e5b-4179-a8a1-c04a6093a761": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "SharePoint",
+      "iconUri": "https://connectoricons-prod.azureedge.net/releases/v1.0.1623/1.0.1623.3210/sharepointonline/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_sharepointonline",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {
+      "https://manilawater.sharepoint.com/sites/ContinousImprovement": {
+        "dataSources": {
+          "Icons": {
+            "tableName": "46d60334-389b-4d6d-bd04-50706ab6ae01"
+          },
+          "Pillars_reference": {
+            "tableName": "f3e8dfa5-cb90-4ac0-b12b-cbd12a705322"
+          },
+          "Procedure_List_1": {
+            "tableName": "5db17ea0-68ed-4df3-b82a-985f2253c62f"
+          }
+        }
+      }
+    },
+    "dataSources": [
+      "Procedure_List_1",
+      "Pillars_reference",
+      "Icons"
+    ],
+    "dependencies": {},
+    "dependents": [
+      "09af9abc-1bb7-4008-870a-81c615548cb0"
+    ],
+    "id": "952d7938-3e5b-4179-a8a1-c04a6093a761"
+  },
+  "fb653657-1a7b-4d65-ae8e-b9024d02c20b": {
+    "connectionParameters": {
+      "sku": "Enterprise"
+    },
+    "connectionRef": {
+      "apiTier": "Standard",
+      "displayName": "Office 365 Users",
+      "iconUri": "https://connectoricons-prod.azureedge.net/u/laborbol/releases/ase-v3/1.0.1622.3200/office365users/icon.png",
+      "id": "/providers/microsoft.powerapps/apis/shared_office365users",
+      "parameterHints": {},
+      "parameterHintsV2": {}
+    },
+    "datasets": {},
+    "dataSources": [
+      "Office365Users"
+    ],
+    "dependencies": {},
+    "dependents": [],
+    "id": "fb653657-1a7b-4d65-ae8e-b9024d02c20b"
+  }
+}

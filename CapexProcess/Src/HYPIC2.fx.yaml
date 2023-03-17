@@ -1,0 +1,217 @@
+"HYPIC2 As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+    Height: =Max(App.Height, App.DesignHeight)
+    Orientation: =If(HYPIC2.Width < HYPIC2.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= HYPIC2.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    PdfViewer1_4 As pdfViewer:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Document: |-
+            =/*            Substitute(
+                            ThisFormTempItem2.Thumbnail.Large,
+                            "/thumbnail",
+                            "/pdf"
+                        )
+            */
+            //ThisFormTempItem2.Thumbnail.Large
+            //Hypic1Label_3.Text
+            Switch(
+                true,
+                Last(
+                    ForAll(Split(
+                        ThisHypPic.GUIDELINES,
+                        "."
+                    ), {Result: ThisRecord.Value})
+                ).Result = "xltx",
+                Blank(),
+                Last(
+                    ForAll(Split(
+                        ThisHypPic.GUIDELINES,
+                        "."
+                    ), {Result: ThisRecord.Value})
+                ).Result = "txt",
+                Blank(),
+                Last(
+                    ForAll(Split(
+                        ThisHypPic.GUIDELINES,
+                        "."
+                    ), {Result: ThisRecord.Value})
+                ).Result = "pdf",
+                Hypic1Label_3.Text,
+                Last(
+                    ForAll(Split(
+                        ThisHypPic.GUIDELINES,
+                        "."
+                    ), {Result: ThisRecord.Value})
+                ).Result = "jpg",
+                Blank(),
+                Substitute(
+                    First(
+                        Filter(
+                            Col_PDFRepo,
+                            'File name with extension' = ThisHypPic.GUIDELINES
+                        )
+                    ).Thumbnail.Large,
+                    "/thumbnail",
+                    "/pdf"
+                )
+            )
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =596
+        ShowControls: =true
+        Width: =1136
+        Y: =44
+        ZIndex: =1
+        Zoom: =If(_deptprocwidth, Zoom.FitBoth)
+
+    Rectangle1_30 As rectangle:
+        DisabledFill: =Rectangle1_30.Fill
+        Fill: =RGBA(45, 78, 143, 1)
+        FocusedBorderColor: =Rectangle1_30.BorderColor
+        Height: =44
+        HoverFill: =Rectangle1_30.Fill
+        PressedFill: =Rectangle1_30.Fill
+        Width: =1136
+        ZIndex: =2
+
+    Icon1_4 As icon.ChevronLeft:
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledFill: =Icon1_4.Fill
+        Height: =30
+        HoverBorderColor: =ColorFade(Icon1_4.BorderColor, 20%)
+        HoverColor: =ColorFade(Icon1_4.Color, 20%)
+        HoverFill: =Icon1_4.Fill
+        Icon: =Icon.ChevronLeft
+        OnSelect: |
+            =
+            UpdateContext({_deptprocwidth: false});
+            
+            //Navigate('IMS Library_1', ScreenTransition.Fade);
+            Set(DontRun, true);
+            Back();
+            Set(ThisHypPic, Blank())
+        PressedBorderColor: =ColorFade(Icon1_4.BorderColor, -20%)
+        PressedColor: =ColorFade(Icon1_4.Color, -20%)
+        PressedFill: =Icon1_4.Fill
+        Width: =30
+        Y: =7
+        ZIndex: =3
+
+    Icon2_4 As icon.Print:
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledFill: =Icon2_4.Fill
+        Height: =30
+        HoverBorderColor: =ColorFade(Icon2_4.BorderColor, 20%)
+        HoverColor: =ColorFade(Icon2_4.Color, 20%)
+        HoverFill: =Icon2_4.Fill
+        Icon: =Icon.Download
+        OnSelect: |-
+            =//Download("https://manilawater.sharepoint.com/sites/ContinousImprovement/PDF Repo/"& ThisHypPic.GUIDELINES)
+        PressedBorderColor: =ColorFade(Icon2_4.BorderColor, -20%)
+        PressedColor: =ColorFade(Icon2_4.Color, -20%)
+        PressedFill: =Icon2_4.Fill
+        Width: =30
+        X: =1088
+        Y: =7
+        ZIndex: =4
+
+    Image3_4 As image:
+        Height: =39
+        HoverBorderColor: =ColorFade(Image3_4.BorderColor, 20%)
+        HoverFill: =ColorFade(Image3_4.Fill, 20%)
+        Image: ='0013'
+        OnSelect: |-
+            =UpdateContext({_deptprocwidth: true});
+            UpdateContext({_deptprocwidth: false})
+        PressedBorderColor: =ColorFade(Image3_4.BorderColor, -20%)
+        PressedFill: =ColorFade(Image3_4.Fill, -20%)
+        Width: =39
+        X: =909
+        Y: =56
+        ZIndex: =5
+
+    Icon3_4 As icon.Document:
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledFill: =Icon3_4.Fill
+        Height: =39
+        HoverBorderColor: =ColorFade(Icon3_4.BorderColor, 20%)
+        HoverColor: =ColorFade(Icon3_4.Color, 20%)
+        HoverFill: =Icon3_4.Fill
+        Icon: =Icon.Document
+        PressedBorderColor: =ColorFade(Icon3_4.BorderColor, -20%)
+        PressedColor: =ColorFade(Icon3_4.Color, -20%)
+        PressedFill: =Icon3_4.Fill
+        Width: =39
+        X: =857
+        Y: =56
+        ZIndex: =6
+
+    Label10_7 As label:
+        Color: =RGBA(230, 230, 230, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =35
+        Size: =14
+        Text: =Concatenate(Text(Round(PdfViewer1_4.ActualZoom,0)),"%")
+        Width: =64
+        X: =568
+        Y: =58
+        ZIndex: =7
+
+    Button7_4 As button:
+        BorderColor: =ColorFade(Button7_4.Fill, -15%)
+        Height: =20
+        HoverBorderColor: =ColorFade(Button7_4.BorderColor, 20%)
+        OnSelect: |-
+            =UpdateContext({_deptprocwidth: true});
+            UpdateContext({_deptprocwidth: false})
+        PressedBorderColor: =Button7_4.Fill
+        PressedColor: =Button7_4.Fill
+        PressedFill: =Button7_4.Color
+        RadiusBottomLeft: =3
+        RadiusBottomRight: =3
+        RadiusTopLeft: =3
+        RadiusTopRight: =3
+        Size: =9
+        Text: ="prep"
+        Visible: =false
+        Width: =177
+        X: =304
+        Y: =7
+        ZIndex: =8
+
+    Label10_8 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        FontWeight: =FontWeight.Semibold
+        Height: =35
+        Size: =14
+        Text: |-
+            ="Zoom:"
+        Width: =75
+        X: =505
+        Y: =58
+        ZIndex: =9
+
+    Hypic1Label_3 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =27
+        Size: =9
+        Text: =ThisHypPic.HyperPic2
+        Visible: =false
+        Width: =60
+        X: =349
+        Y: =10
+        ZIndex: =10
+
+    Label4_6 As label:
+        Align: =Align.Center
+        Color: =RGBA(237, 237, 237, 1)
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Semibold
+        Height: =30
+        Size: =11
+        Text: ="[ "& ThisHypPic.GUIDELINES & " ]"
+        Width: =1025
+        X: =55
+        Y: =8
+        ZIndex: =11
+

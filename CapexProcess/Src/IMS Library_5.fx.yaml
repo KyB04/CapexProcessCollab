@@ -1,0 +1,1897 @@
+"'IMS Library_5' As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+    Height: =Max(App.Height, App.DesignHeight)
+    OnVisible: |-
+        =Select(Button3_4);
+        Select(Button2_71);
+        Select(Button6_3)
+    Orientation: =If('IMS Library_5'.Width < 'IMS Library_5'.Height, Layout.Vertical, Layout.Horizontal)
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= 'IMS Library_5'.Width)
+    Width: =Max(App.Width, App.DesignWidth)
+
+    Button4_20 As button:
+        BorderColor: =
+        BorderThickness: =1
+        DisabledFill: =RGBA(116, 116, 116, 1)
+        DisplayMode: =DisplayMode.Disabled
+        Fill: =RGBA(116, 116, 116, 1)
+        Height: =526
+        HoverBorderColor: =ColorFade(Button4_20.BorderColor, 20%)
+        PressedBorderColor: =Button4_20.Fill
+        PressedColor: =Button4_20.Fill
+        PressedFill: =Button4_20.Color
+        RadiusBottomLeft: =3
+        RadiusBottomRight: =3
+        RadiusTopLeft: =3
+        RadiusTopRight: =3
+        Size: =24
+        Text: =""
+        Width: =1131
+        X: =2
+        Y: =80
+        ZIndex: =1
+
+    Button2_73 As button:
+        BorderColor: =ColorFade(Button2_73.Fill, -15%)
+        BorderStyle: =BorderStyle.None
+        Color: =If(ToggleThis, RGBA(255, 255, 255, 1), RGBA(0, 0, 0, 1))
+        DisplayMode: =DisplayMode.Disabled
+        Fill: =If(ToggleThis, RGBA(45, 78, 143, 1), RGBA(230, 230, 230, 1))
+        FocusedBorderColor: =Button2_73.BorderColor
+        Font: =Font.'Segoe UI'
+        Height: =42
+        HoverBorderColor: =ColorFade(Button2_73.BorderColor, 20%)
+        OnSelect: =If(ToggleThis, Set(ToggleThis, false), Set(ToggleThis, true))
+        PaddingBottom: =15
+        PressedBorderColor: =Button2_73.Fill
+        PressedColor: =Button2_73.Fill
+        PressedFill: =Button2_73.Color
+        RadiusBottomLeft: =5
+        RadiusBottomRight: =5
+        RadiusTopLeft: =5
+        RadiusTopRight: =5
+        Size: =9
+        Text: =""
+        Width: =32
+        X: =6
+        Y: =84
+        ZIndex: =2
+
+    Gallery2_55 As gallery.galleryHorizontal:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        Default: |-
+            =//LookUp(Filter(Distinct(Col_ProcList, 'SP/DP'), !IsBlank(Result)), Result = "Department Procedure")
+            Switch(true,
+            Dropdown1_2.Selected.Result = "PMG (Project Management Group)",
+            First(Filter(Filter(ForAll(Distinct(Col_ProcList, 'SP/DP'), {Result: ThisRecord.Value}), !IsBlank(Result)), Result = "Department Procedure")),
+            Blank())
+        Height: =64
+        Items: |-
+            =Filter(ForAll(Distinct(Col_ProcList, 'SP/DP'), {Result: ThisRecord.Value}), !IsBlank(Result))
+            //Col_DepSP_Table
+        ShowScrollbar: =false
+        TemplatePadding: =1
+        TemplateSize: =569
+        Width: =1089
+        X: =39
+        Y: =83
+        ZIndex: =3
+
+        Button2_72 As button:
+            BorderColor: =ColorFade(Color.White, -10%)
+            BorderThickness: =1
+            Color: =If(ToggleThis,RGBA(255, 255, 255, 1),If(ThisItem.IsSelected, RGBA(255, 255, 255, 1), RGBA(0, 0, 0, 1)))
+            DisabledBorderColor: =RGBA(149, 149, 149, 1)
+            DisplayMode: =DisplayMode.Edit //If(ThisItem.IsSelected, Edit, Disabled)
+            Fill: =If(ToggleThis,RGBA(45, 78, 143, 1), If(ThisItem.IsSelected, RGBA(45, 78, 143, 1), RGBA(230, 230, 230, 1)))
+            FocusedBorderColor: =Button2_72.BorderColor
+            Font: =Font.'Segoe UI'
+            Height: =61
+            HoverBorderColor: =ColorFade(Button2_72.BorderColor, 20%)
+            OnSelect: |-
+                =UpdateContext({xSelectedSysDep: Proper(Button2_72.Text)});
+                If(ToggleThis, Set(ToggleThis, false))
+            PaddingBottom: =48
+            PressedBorderColor: =Button2_72.Fill
+            PressedColor: =Button2_72.Fill
+            PressedFill: =Button2_72.Color
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Size: =9
+            Text: |-
+                =//ThisItem.Title
+                ThisItem.Result
+            Width: =566
+            ZIndex: =1
+
+    Gallery2_56 As gallery.galleryHorizontal:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =5
+        Default: |-
+            =//LookUp(Filter(Distinct(Filter(Col_ProcList,'SP/DP' = Gallery2_43.Selected.Result && GROUP = Dropdown1_1.Selected.Result), DEPARTMENT), !IsBlank(Result)), Result = First(Gallery2_44.AllItems).Result) 
+            LookUp(Filter(ForAll(Distinct(Filter(Col_ProcList,'SP/DP' = Gallery2_55.Selected.Result && GROUP = Dropdown1_2.Selected.Result), DEPARTMENT), {Result: ThisRecord.Value}), !IsBlank(Result)), Result = "Project Management (PMD)") 
+        Height: =39
+        Items: |-
+            =//Filter(Col_DeptTable,  Group = Dropdown1.Selected.Result)
+            Filter(ForAll(Distinct(Filter(Col_ProcList,'SP/DP' = Gallery2_55.Selected.Result && GROUP = Dropdown1_2.Selected.Result), DEPARTMENT), {Result: ThisRecord.Value}), !IsBlank(Result))
+        ShowNavigation: =true
+        ShowScrollbar: =false
+        TemplatePadding: =1
+        TemplateSize: =281
+        Width: =1131
+        X: =3
+        Y: =109
+        ZIndex: =4
+
+        Button2_74 As button:
+            BorderColor: =Color.White //ColorFade(Button2_49.Fill, -15%)
+            BorderThickness: =1
+            Color: =If(ToggleThis,RGBA(255, 255, 255, 1),If(ThisItem.IsSelected, RGBA(255, 255, 255, 1), RGBA(0, 0, 0, 1)))
+            DisabledBorderColor: =RGBA(149, 149, 149, 1)
+            DisabledFill: =RGBA(250, 192, 92, 1)
+            DisplayMode: =DisplayMode.Edit //If(ThisItem.IsSelected, Edit, Disabled)
+            Fill: =If(ToggleThis,RGBA(45, 78, 143, 1), If(ThisItem.IsSelected, RGBA(227, 169, 107, 1), RGBA(204, 204, 204, 1)))
+            FocusedBorderColor: =Button2_74.BorderColor
+            Font: =Font.'Segoe UI'
+            Height: =34
+            HoverBorderColor: =ColorFade(Button2_74.BorderColor, 20%)
+            HoverFill: =ColorFade(RGBA(227, 169, 107, 1), -10%)
+            OnSelect: |-
+                =UpdateContext({xSelectedDeptTitle: Button2_74.Text});
+                If(ToggleThis, Set(ToggleThis, false))
+            PaddingBottom: =18
+            PressedBorderColor: =Button2_74.Fill
+            PressedColor: =Button2_74.Fill
+            PressedFill: =Button2_74.Color
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Size: =8
+            Text: =ThisItem.Result
+            Width: =279
+            ZIndex: =1
+
+    Rectangle3_18 As rectangle:
+        DisabledFill: =
+        Fill: =RGBA(3, 19, 82, 1)
+        FocusedBorderColor: =Rectangle3_18.BorderColor
+        Height: =32
+        HoverFill: =Rectangle3_18.Fill
+        PressedFill: =Rectangle3_18.Fill
+        Visible: =If(ToggleThis, false, true)
+        Width: =1136
+        Y: =608
+        ZIndex: =5
+
+    Button2_78 As button:
+        BorderColor: =ColorFade(Button2_78.Fill, -15%)
+        BorderStyle: =BorderStyle.None
+        Color: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(230, 230, 230, 1)
+        FocusedBorderColor: =Button2_78.BorderColor
+        Font: =Font.'Segoe UI'
+        Height: =35
+        HoverBorderColor: =ColorFade(Button2_78.BorderColor, 20%)
+        OnSelect: |-
+            =UpdateContext({xSelectedMenuTitle: Proper(Self.Text)})
+        PaddingBottom: =15
+        PressedBorderColor: =Button2_78.Fill
+        PressedColor: =Button2_78.Fill
+        PressedFill: =Button2_78.Color
+        Size: =9
+        Text: =Proper("CONSTRUCTION")
+        Visible: =false
+        Width: =137
+        X: =710
+        Y: =224
+        ZIndex: =6
+
+    Button2_79 As button:
+        BorderColor: =ColorFade(Button2_79.Fill, -15%)
+        BorderStyle: =BorderStyle.None
+        Color: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(230, 230, 230, 1)
+        FocusedBorderColor: =Button2_79.BorderColor
+        Font: =Font.'Segoe UI'
+        Height: =35
+        HoverBorderColor: =ColorFade(Button2_79.BorderColor, 20%)
+        OnSelect: |-
+            =UpdateContext({xSelectedMenuTitle: Proper(Self.Text)})
+        PaddingBottom: =15
+        PressedBorderColor: =Button2_79.Fill
+        PressedColor: =Button2_79.Fill
+        PressedFill: =Button2_79.Color
+        Size: =9
+        Text: =Proper("POST CONSTRUCTION")
+        Visible: =false
+        Width: =137
+        X: =847
+        Y: =224
+        ZIndex: =7
+
+    Rectangle1_41 As rectangle:
+        BorderColor: =RGBA(50, 86, 160, 1)
+        DisabledFill: =Rectangle1_41.Fill
+        Fill: =RGBA(219, 219, 219, 1)
+        FocusedBorderColor: =Rectangle1_41.BorderColor
+        Height: =64
+        HoverFill: =Rectangle1_41.Fill
+        PressedFill: =Rectangle1_41.Fill
+        Width: =1130
+        X: =3
+        Y: =134
+        ZIndex: =8
+
+    Image5_37 As image:
+        FocusedBorderColor: =Image5_37.BorderColor
+        Height: =36
+        HoverBorderColor: =ColorFade(Image5_37.BorderColor, 20%)
+        HoverFill: =ColorFade(Image5_37.Fill, 20%)
+        Image: ='IMS icons A 01'
+        PressedBorderColor: =ColorFade(Image5_37.BorderColor, -20%)
+        PressedFill: =ColorFade(Image5_37.Fill, -20%)
+        Width: =37
+        X: =19
+        Y: =298
+        ZIndex: =9
+
+    Label3_36 As label:
+        Height: =26
+        Size: =21
+        Text: =Trim(xSelectedMenuTitle)
+        Visible: =false
+        Width: =560
+        X: =465
+        Y: =4
+        ZIndex: =10
+
+    Gallery2_57 As gallery.galleryVertical:
+        Default: |-
+            =//LookUp(Gallery2_20.AllItems, Button2_20.Text = First(Gallery2_20.AllItems).Button2_20.Text)
+            //LookUp(Filter(Col_ProcList, DEPARTMENT = Gallery2_12.Selected.Result && 'SP/DP' = Gallery2_24.Selected.Result), GROUP = Dropdown1.Selected.Result)
+            //If(CountRows(Gallery2_20.AllItems) =0, LookUp(Distinct(Col_ProcList, 'PROCEDURE '), Result = First(Gallery2_20.AllItems).Result))
+            /*
+            Switch(true, 
+            Len(GalleryAx)>0, LookUp(Distinct(Col_ProcList, 'PROCEDURE '), Result = ProcTitle),
+            Len(GalleryAx)=0, LookUp(Distinct(Col_ProcList, 'PROCEDURE '), Result = First(Gallery2_1.AllItems).Result),
+            LookUp(Distinct(Col_ProcList, 'PROCEDURE '), Result = First(Gallery2_1.AllItems).Result))
+            */
+            //LookUp(Distinct(Col_ProcList, 'PROCEDURE '), Result = First(Gallery2_45.AllItems).Result)
+            Switch(
+                true,
+                And(And(
+                    xSelectedDeptTitle = "Project Management (PMD)",
+                    xSelectedSysDep = "Department Procedure"
+                ),Dropdown1_2.Selected.Result = "PMG (Project Management Group)"),
+                LookUp(
+                    ForAll(Distinct(
+                        Col_ProcList,
+                        'PROCEDURE '
+                    ), {Result: ThisRecord.Value}),
+                    Result = "PMD MWO-PD-L2-1.7 Variation Order (Change Notice Procedure)_Rev 04.pdf"
+                ),
+                Blank()
+            )
+        Fill: =RGBA(219, 219, 219, 1)
+        Height: =404
+        Items: |-
+            =SortByColumns(
+                ForAll(Distinct(
+                    Filter(
+                        Col_ProcList,
+                        DEPARTMENT = Gallery2_56.Selected.Result && 'SP/DP' = Gallery2_55.Selected.Result && GROUP = Dropdown1_2.Selected.Result
+                    ),
+                    'PROCEDURE '
+                ), {Result: ThisRecord.Value}),
+                "Result",
+                SortOrder.Ascending
+            )
+            //Filter(Distinct(Filter(Col_ProcList,'SP/DP' = Gallery2_24.Selected.Result && GROUP = Dropdown1.Selected.Result), DEPARTMENT), !IsBlank(Result)
+        Layout: =Layout.Vertical
+        ShowScrollbar: =false
+        TemplatePadding: =3
+        TemplateSize: =43
+        Transition: =Transition.Push
+        Visible: =If(ToggleThis, false, true)
+        Width: =355
+        X: =3
+        Y: =154
+        ZIndex: =11
+
+        Button2_75 As button:
+            Align: =Align.Left
+            BorderColor: =ColorFade(Button2_75.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(116, 116, 116, 1)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =If(ThisItem.IsSelected, DisplayMode.Edit, DisplayMode.Disabled)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =43
+            HoverBorderColor: =ColorFade(Button2_75.BorderColor, 20%)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            Italic: =If(ThisItem.IsSelected, true, false)
+            OnSelect: |+
+                =UpdateContext({GalleryA: Gallery2_57.Selected.Result});
+                
+                Set(ThisType, First(Filter(Col_ProcList, 'PROCEDURE ' = ThisItem.Result)).FolderOrFile);
+                Set(ThisHypPic3, First(Filter(Col_ProcList, 'PROCEDURE ' = ThisItem.Result)));
+                //UpdateContext({GalleryA: Gallery2_32.Selected.Result});
+                //Set(ThisHypPic3, Gallery2_33.Selected);
+                //Switch(true,
+                //SelectedMenuTitle = "Concept/Planning", 
+                //Set(ThisHypPic3, First(Filter(Col_ProcList, 'PROCEDURE ' = ThisItem.Result)));
+                Navigate(HYPIC3, ScreenTransition.Fade, {ThisImageLink: Label3_23.Text})
+                
+            PaddingLeft: =32
+            PaddingRight: =25
+            PressedBorderColor: =Button2_75.Fill
+            PressedColor: =Button2_75.Fill
+            PressedFill: =Button2_75.Color
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =7.5
+            Text: =ThisItem.Result
+            Width: =347
+            ZIndex: =1
+
+        Label9_31 As label:
+            Align: =Align.Center
+            Color: =RGBA(0, 13, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            PaddingTop: =2
+            Size: =21
+            Text: ="🢒"
+            Visible: =If(ThisItem.IsSelected, true, false)
+            Width: =24
+            X: =323
+            Y: =4
+            ZIndex: =3
+
+        Image2_28 As image:
+            Height: =28
+            HoverBorderColor: =ColorFade(Image2_28.BorderColor, 20%)
+            HoverFill: =ColorFade(Image2_28.Fill, 20%)
+            Image: ='pdf (2)'
+            OnSelect: |-
+                =Set(ThisHypPic3, First(Filter(Col_ProcList, 'PROCEDURE ' = ThisItem.Result)));
+                //Set(ThisHypPic3, Gallery2_21.Selected);
+                Navigate(HYPIC3, ScreenTransition.Fade, {ThisImageLink: Label3_39.Text})
+            PressedBorderColor: =ColorFade(Image2_28.BorderColor, -20%)
+            PressedFill: =ColorFade(Image2_28.Fill, -20%)
+            Visible: =If(ThisItem.IsSelected, true, false)
+            Width: =23
+            X: =2
+            Y: =6
+            ZIndex: =5
+
+    Image2_32 As image:
+        FocusedBorderColor: =Image2_32.BorderColor
+        Height: =20
+        HoverBorderColor: =ColorFade(Image2_32.BorderColor, 20%)
+        HoverFill: =ColorFade(Image2_32.Fill, 20%)
+        Image: ='Icon IMS Library'
+        OnSelect: =Navigate('IMS Library_5',ScreenTransition.Fade)
+        PressedBorderColor: =ColorFade(Image2_32.BorderColor, -20%)
+        PressedFill: =ColorFade(Image2_32.Fill, -20%)
+        Visible: =false //If(ToggleThis, false, true)
+        Width: =40
+        X: =25
+        Y: =612
+        ZIndex: =12
+
+    Image2_33 As image:
+        FocusedBorderColor: =Image2_33.BorderColor
+        Height: =25
+        HoverBorderColor: =ColorFade(Image2_33.BorderColor, 20%)
+        HoverFill: =ColorFade(Image2_33.Fill, 20%)
+        Image: ='Icon Report'
+        PressedBorderColor: =ColorFade(Image2_33.BorderColor, -20%)
+        PressedFill: =ColorFade(Image2_33.Fill, -20%)
+        Visible: =If(ToggleThis, false, true)
+        Width: =63
+        X: =442
+        Y: =612
+        ZIndex: =13
+
+    Image2_34 As image:
+        FocusedBorderColor: =Image2_34.BorderColor
+        Height: =25
+        HoverBorderColor: =ColorFade(Image2_34.BorderColor, 20%)
+        HoverFill: =ColorFade(Image2_34.Fill, 20%)
+        Image: ='Icon FAQ'
+        PressedBorderColor: =ColorFade(Image2_34.BorderColor, -20%)
+        PressedFill: =ColorFade(Image2_34.Fill, -20%)
+        Visible: =If(ToggleThis, false, true)
+        Width: =63
+        X: =927
+        Y: =612
+        ZIndex: =14
+
+    Label3_43 As label:
+        Color: =RGBA(237, 237, 237, 1)
+        FocusedBorderColor: =Label3_43.BorderColor
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Semibold
+        Height: =28
+        HoverBorderColor: =Label3_43.BorderColor
+        HoverColor: =Label3_43.Color
+        HoverFill: =Label3_43.Fill
+        OnSelect: =Navigate('IMS Library_5',ScreenTransition.Fade)
+        PressedBorderColor: =Label3_43.BorderColor
+        PressedColor: =Label3_43.Color
+        PressedFill: =Label3_43.Fill
+        Size: =8
+        Text: ="Visit the Library"
+        Visible: =false //If(ToggleThis, false, true)
+        Width: =137
+        X: =66
+        Y: =610
+        ZIndex: =15
+
+    Label3_44 As label:
+        Color: =RGBA(237, 237, 237, 1)
+        FocusedBorderColor: =Label3_44.BorderColor
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Semibold
+        Height: =28
+        HoverBorderColor: =Label3_44.BorderColor
+        HoverColor: =Label3_44.Color
+        HoverFill: =Label3_44.Fill
+        PressedBorderColor: =Label3_44.BorderColor
+        PressedColor: =Label3_44.Color
+        PressedFill: =Label3_44.Fill
+        Size: =8
+        Text: ="Issue Corrective Action Report (CAR)"
+        Visible: =If(ToggleThis, false, true)
+        Width: =164
+        X: =500
+        Y: =610
+        ZIndex: =16
+
+    Label3_42 As label:
+        Color: =RGBA(237, 237, 237, 1)
+        FocusedBorderColor: =Label3_42.BorderColor
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Semibold
+        Height: =28
+        HoverBorderColor: =Label3_42.BorderColor
+        HoverColor: =Label3_42.Color
+        HoverFill: =Label3_42.Fill
+        PressedBorderColor: =Label3_42.BorderColor
+        PressedColor: =Label3_42.Color
+        PressedFill: =Label3_42.Fill
+        Size: =8
+        Text: ="Frequently Asked Questions (FAQ)"
+        Visible: =If(ToggleThis, false, true)
+        X: =983
+        Y: =609
+        ZIndex: =17
+
+    Button5_8 As button:
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =1
+        DisabledBorderColor: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(237, 237, 237, 1)
+        DisabledFill: =RGBA(0, 121, 187, 1)
+        DisplayMode: =DisplayMode.Disabled
+        Fill: =RGBA(0, 94, 146, 1)
+        Font: =Font.'Segoe UI'
+        Height: =34
+        HoverBorderColor: =ColorFade(Button5_8.BorderColor, 20%)
+        HoverFill: =RGBA(245, 245, 218, 1)
+        OnSelect: =
+        PaddingBottom: =15
+        PaddingTop: =0
+        PressedBorderColor: =Button5_8.Fill
+        PressedColor: =Button5_8.Fill
+        PressedFill: =Button5_8.Color
+        Size: =8
+        Text: ="FORMS AND TEMPLATES"
+        Visible: =If(ToggleThis, false, true)
+        Width: =388
+        X: =350
+        Y: =136
+        ZIndex: =18
+
+    Button5_9 As button:
+        BorderColor: =RGBA(237, 237, 237, 1)
+        BorderThickness: =1
+        Color: =RGBA(69, 67, 67, 1)
+        DisabledBorderColor: =RGBA(255, 255, 255, 1)
+        DisabledColor: =RGBA(237, 237, 237, 1)
+        DisabledFill: =RGBA(0, 121, 187, 1)
+        DisplayMode: =DisplayMode.Disabled
+        Fill: =RGBA(0, 94, 146, 1)
+        Font: =Font.'Segoe UI'
+        Height: =34
+        HoverBorderColor: =ColorFade(Button5_9.BorderColor, 20%)
+        PaddingBottom: =15
+        PaddingTop: =0
+        PressedBorderColor: =Button5_9.Fill
+        PressedColor: =Button5_9.Fill
+        PressedFill: =Button5_9.Color
+        Size: =8
+        Text: ="GUIDELINES"
+        Visible: =If(ToggleThis, false, true)
+        Width: =389
+        X: =742
+        Y: =136
+        ZIndex: =19
+
+    Button4_31 As button:
+        BorderColor: =
+        BorderThickness: =0
+        DisplayMode: =DisplayMode.Disabled
+        Fill: =RGBA(219, 219, 219, 1)
+        Height: =401
+        HoverBorderColor: =ColorFade(Button4_31.BorderColor, 20%)
+        PressedBorderColor: =Button4_31.Fill
+        PressedColor: =Button4_31.Fill
+        PressedFill: =Button4_31.Color
+        RadiusBottomLeft: =3
+        RadiusBottomRight: =3
+        RadiusTopLeft: =3
+        RadiusTopRight: =3
+        Size: =24
+        Text: =""
+        Width: =779
+        X: =352
+        Y: =157
+        ZIndex: =20
+
+    Gallery2_58 As gallery.galleryVertical:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =401
+        Items: |-
+            =Filter(Col_ProcList, 'PROCEDURE '= Gallery2_57.Selected.Result && 'FORMS/TEMPLATES' <> "-NF-")
+            //Filter(Procedure_List_1, PHASE = SelectedMenuTitle && 'PROCEDURE '= GalleryA)
+            //Procedure_List
+        Layout: =Layout.Vertical
+        TemplatePadding: =2
+        TemplateSize: =33
+        Transition: =Transition.Pop
+        Visible: =If(ToggleThis, false, true)
+        Width: =389
+        X: =350
+        Y: =157
+        ZIndex: =21
+
+        Button2_76 As button:
+            Align: =Align.Left
+            BorderColor: =ColorFade(Button2_76.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =If(ThisItem.IsSelected, RGBA(0, 0, 0, 1), RGBA(116, 116, 116, 1))
+            DisplayMode: =DisplayMode.Edit //If(ThisItem.IsSelected, Edit, View)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =30
+            HoverBorderColor: =ColorFade(Button2_76.BorderColor, 20%)
+            Italic: =If(ThisItem.IsSelected, true, false)
+            OnSelect: |-
+                =Set(ThisType, ThisItem.FolderOrFile);
+                Set(ThisHypPic, First(Filter(Col_ProcList, 'FORMS/TEMPLATES' = ThisItem.'FORMS/TEMPLATES')));
+                //Navigate(HYPIC1, ScreenTransition.Fade, {ThisImageLink: Label3_29.Text})
+                If(ThisItem.FolderOrFile = "File", Download("https://manilawater.sharepoint.com/sites/ContinousImprovement/PDF Repo/"& ThisItem.'FORMS/TEMPLATES'))
+                
+                //Filter(Distinct(Col_ProcList, 'SP/DP'), !IsBlank(Result))
+            PressedBorderColor: =Button2_76.Fill
+            PressedColor: =Color.White //Button2_4.Fill
+            PressedFill: =Button2_76.Color
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =7.5
+            Text: =ThisItem.'FORMS/TEMPLATES'
+            Width: =351
+            X: =32
+            Y: =3
+            ZIndex: =1
+
+        Image2_29 As image:
+            DisplayMode: =DisplayMode.View
+            Height: =30
+            HoverBorderColor: =ColorFade(Image2_29.BorderColor, 20%)
+            HoverFill: =ColorFade(Image2_29.Fill, 20%)
+            Image: ='pdf (1)'
+            OnSelect: |-
+                =Set(ThisHypPic, Gallery2_58.Selected);
+                Navigate(HYPIC1, ScreenTransition.None, {ThisImageLink: Label3_38.Text})
+            PressedBorderColor: =ColorFade(Image2_29.BorderColor, -20%)
+            PressedFill: =ColorFade(Image2_29.Fill, -20%)
+            Visible: = false //If(ThisItem.IsSelected, false, true)
+            Width: =29
+            X: =1
+            Y: =2
+            ZIndex: =2
+
+        Image2_30 As image:
+            Height: =28
+            HoverBorderColor: =ColorFade(Image2_30.BorderColor, 20%)
+            HoverFill: =ColorFade(Image2_30.Fill, 20%)
+            Image: |-
+                =If(
+                    Label2_21.Text = "Folder",
+                    'folder icon',
+                    Switch(
+                        true,
+                        (Label3_40.Text = "pdf"),
+                        'pdf (2)',
+                        (Left(
+                            Label3_40.Text,
+                            3
+                        ) = "doc"),
+                        word,
+                        (Left(
+                            Label3_40.Text,
+                            2
+                        ) = "xl"),
+                        excel,
+                        (Left(
+                            Label3_40.Text,
+                            3
+                        ) = "ppt"),
+                        powerpoint,
+                        (Left(
+                            Label3_40.Text,
+                            3
+                        ) = "dot"),
+                        word,
+                        'Legal&OtherRequirement_Icon'
+                    )
+                )
+            OnSelect: |-
+                =Set(ThisHypPic, First(Filter(Col_ProcList, 'FORMS/TEMPLATES' = ThisItem.'FORMS/TEMPLATES')));
+                //Navigate(HYPIC1, ScreenTransition.Fade, {ThisImageLink: Label3_29.Text})
+                If(ThisItem.FolderOrFile = "File", Download("https://manilawater.sharepoint.com/sites/ContinousImprovement/PDF Repo/"& ThisItem.'FORMS/TEMPLATES'))
+            PressedBorderColor: =ColorFade(Image2_30.BorderColor, -20%)
+            PressedFill: =ColorFade(Image2_30.Fill, -20%)
+            Visible: =If(ThisItem.IsSelected, true, false)
+            Width: =23
+            X: =5
+            Y: =2
+            ZIndex: =3
+
+        Label2_22 As label:
+            Fill: =RGBA(54, 176, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            Size: =8
+            Text: |-
+                =Right(ThisItem.'FORMS/TEMPLATES',Len(ThisItem.'FORMS/TEMPLATES')-Find(".", ThisItem.'FORMS/TEMPLATES'))
+                /*
+                Right(
+                    ThisItem.EmployeeName,
+                    Len(ThisItem.EmployeeName)-Find(" ", ThisItem.EmployeeName)
+                )
+                */
+            Visible: =false
+            Width: =28
+            X: =327
+            ZIndex: =4
+
+        Label3_40 As label:
+            Fill: =RGBA(184, 0, 0, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            Size: =8
+            Text: =Right(Label2_22.Text,Len(Label2_22.Text)-Find(".", Label2_22.Text))
+            Visible: =false
+            Width: =30
+            X: =355
+            ZIndex: =5
+
+        Label2_21 As label:
+            Fill: =RGBA(54, 176, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            Size: =8
+            Text: |-
+                =ThisItem.FolderOrFile
+                /*
+                Right(
+                    ThisItem.EmployeeName,
+                    Len(ThisItem.EmployeeName)-Find(" ", ThisItem.EmployeeName)
+                )
+                */
+            Visible: =false
+            Width: =27
+            X: =300
+            ZIndex: =6
+
+    Gallery2_59 As gallery.galleryVertical:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =401
+        Items: |-
+            =Filter(Col_ProcList, 'PROCEDURE '= Gallery2_57.Selected.Result && GUIDELINES <> "-NF-")
+            //Procedure_List
+        Layout: =Layout.Vertical
+        TemplatePadding: =2
+        TemplateSize: =33
+        Transition: =Transition.Pop
+        Visible: =If(ToggleThis, false, true)
+        Width: =390
+        X: =742
+        Y: =157
+        ZIndex: =22
+
+        Button2_77 As button:
+            Align: =Align.Left
+            BorderColor: =ColorFade(Button2_77.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =If(ThisItem.IsSelected, RGBA(0, 0, 0, 1), RGBA(116, 116, 116, 1))
+            DisplayMode: =DisplayMode.Edit //If(ThisItem.IsSelected, Edit, View)
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =30
+            HoverBorderColor: =ColorFade(Button2_77.BorderColor, 20%)
+            Italic: =If(ThisItem.IsSelected, true, false)
+            OnSelect: |-
+                =//Set(ThisHypPic, Gallery2_47.Selected)
+                Set(ThisType, ThisItem.FolderOrFile);
+                Set(ThisHypPic, First(Filter(Col_ProcList, GUIDELINES = ThisItem.GUIDELINES)));
+                If(ThisItem.FolderOrFile = "File", Download("https://manilawater.sharepoint.com/sites/ContinousImprovement/PDF Repo/"& ThisItem.GUIDELINES))
+            PressedBorderColor: =Button2_77.Fill
+            PressedColor: =Color.White //Button2_4.Fill
+            PressedFill: =Button2_77.Color
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =7.5
+            Text: =ThisItem.GUIDELINES
+            Width: =351
+            X: =32
+            Y: =3
+            ZIndex: =1
+
+        Image2_31 As image:
+            Height: =28
+            HoverBorderColor: =ColorFade(Image2_31.BorderColor, 20%)
+            HoverFill: =ColorFade(Image2_31.Fill, 20%)
+            Image: |-
+                =If(
+                    Label2_23.Text = "Folder",
+                    'folder icon',
+                    Switch(
+                        true,
+                        (Label3_41.Text = "pdf"),
+                        'pdf (2)',
+                        (Left(
+                            Label3_41.Text,
+                            3
+                        ) = "doc"),
+                        word,
+                        (Left(
+                            Label3_41.Text,
+                            2
+                        ) = "xl"),
+                        excel,
+                        (Left(
+                            Label3_41.Text,
+                            3
+                        ) = "ppt"),
+                        powerpoint,
+                        (Left(
+                            Label3_41.Text,
+                            3
+                        ) = "dot"),
+                        word,
+                        'Legal&OtherRequirement_Icon'
+                    )
+                )
+            OnSelect: |-
+                =Set(ThisType, ThisItem.FolderOrFile);
+                Set(ThisHypPic, First(Filter(Col_ProcList, GUIDELINES = ThisItem.GUIDELINES)));
+                If(ThisItem.FolderOrFile = "File", Download("https://manilawater.sharepoint.com/sites/ContinousImprovement/PDF Repo/"& ThisItem.GUIDELINES))
+                //Navigate(HYPIC2, ScreenTransition.Fade, {ThisImageLink: Label3_28.Text})
+            PressedBorderColor: =ColorFade(Image2_31.BorderColor, -20%)
+            PressedFill: =ColorFade(Image2_31.Fill, -20%)
+            Visible: =If(ThisItem.IsSelected, true, false)
+            Width: =23
+            X: =5
+            Y: =2
+            ZIndex: =2
+
+        Label2_24 As label:
+            Fill: =RGBA(54, 176, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            Size: =8
+            Text: |-
+                =Right(ThisItem.'FORMS/TEMPLATES',Len(ThisItem.'FORMS/TEMPLATES')-Find(".", ThisItem.'FORMS/TEMPLATES'))
+                /*
+                Right(
+                    ThisItem.EmployeeName,
+                    Len(ThisItem.EmployeeName)-Find(" ", ThisItem.EmployeeName)
+                )
+                */
+            Visible: =false
+            Width: =35
+            X: =315
+            ZIndex: =3
+
+        Label3_41 As label:
+            Fill: =RGBA(184, 0, 0, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            Size: =8
+            Text: =Right(Label2_24.Text,Len(Label2_24.Text)-Find(".", Label2_24.Text))
+            Visible: =false
+            Width: =33
+            X: =350
+            ZIndex: =4
+
+        Label2_23 As label:
+            Fill: =RGBA(54, 176, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            Size: =8
+            Text: |-
+                =ThisItem.FolderOrFile
+                /*
+                Right(
+                    ThisItem.EmployeeName,
+                    Len(ThisItem.EmployeeName)-Find(" ", ThisItem.EmployeeName)
+                )
+                */
+            Visible: =false
+            Width: =32
+            X: =283
+            ZIndex: =5
+
+    Label3_37 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =37
+        Size: =10
+        Text: =ThisHypPic.HyperPic2
+        Visible: =false
+        Width: =71
+        X: =558
+        Y: =6
+        ZIndex: =23
+
+    Label3_38 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =38
+        Size: =10
+        Text: =ThisHypPic.HyperPic
+        Visible: =false
+        Width: =78
+        X: =485
+        Y: =7
+        ZIndex: =24
+
+    Gallery2_48 As gallery.galleryVertical:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =Switch(true, ShowPilalrs, 293, 458)
+        Items: |-
+            =ForAll(Distinct(Filter(Col_ProcList, PHASE = "Concept/Planning"), PILLAR), {Result: ThisRecord.Value})
+            //Procedure_List
+        Layout: =Layout.Vertical
+        Selectable: =false
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =53
+        Transition: =Transition.Push
+        Visible: =If(ToggleThis, true, false)
+        Width: =153
+        X: =40
+        Y: =Switch(true, ShowPilalrs, 262, 97   )
+        ZIndex: =25
+
+        Button2_64 As button:
+            Align: =Align.Left
+            BorderColor: =ColorFade(Button2_64.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(116, 116, 116, 1)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Edit //If(ThisItem.IsSelected, Edit, Disabled)
+            Fill: =RGBA(227, 243, 250, 1)
+            Height: =50
+            HoverBorderColor: =ColorFade(Button2_64.BorderColor, 20%)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            Italic: =true
+            OnSelect: |-
+                =UpdateContext({GalleryAx: ThisItem.Result})
+            PressedBorderColor: =Button2_64.Fill
+            PressedColor: =Button2_64.Fill
+            PressedFill: =Button2_64.Color
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =7
+            Text: =ThisItem.Result
+            Width: =153
+            ZIndex: =1
+
+        Label9_24 As label:
+            Align: =Align.Center
+            Color: =RGBA(0, 13, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            PaddingTop: =2
+            Size: =21
+            Text: ="🢒"
+            Visible: =If(ThisItem.IsSelected, true, false)
+            Width: =24
+            X: =129
+            ZIndex: =3
+
+        Rectangle1_34 As rectangle:
+            DisabledFill: =Rectangle1_34.Fill
+            Fill: =RGBA(0, 13, 75, 1)
+            Height: =50
+            HoverFill: =Rectangle1_34.Fill
+            OnSelect: =Select(Parent)
+            PressedFill: =Rectangle1_34.Fill
+            Width: =1
+            ZIndex: =4
+
+    Gallery2_49 As gallery.galleryVertical:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =Switch(true, ShowPilalrs, 293, 458)
+        Items: |-
+            =Filter(ForAll(Distinct(Filter(Col_ProcList, PHASE = "Design and Costing"), PILLAR), {Result: ThisRecord.Value}), !IsBlank(Result))
+            //Procedure_List
+        Layout: =Layout.Vertical
+        Selectable: =false
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =53
+        Transition: =Transition.Push
+        Visible: =If(ToggleThis, true, false)
+        Width: =153
+        X: =196
+        Y: =Switch(true, ShowPilalrs, 262, 97   )
+        ZIndex: =26
+
+        Button2_65 As button:
+            Align: =Align.Left
+            BorderColor: =ColorFade(Button2_65.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(116, 116, 116, 1)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Edit //If(ThisItem.IsSelected, Edit, Disabled)
+            Fill: =RGBA(227, 243, 250, 1)
+            Height: =50
+            HoverBorderColor: =ColorFade(Button2_65.BorderColor, 20%)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            Italic: =true
+            OnSelect: |-
+                =//UpdateContext({GalleryA: Gallery2_3.Selected.Result})
+            PressedBorderColor: =Button2_65.Fill
+            PressedColor: =Button2_65.Fill
+            PressedFill: =Button2_65.Color
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =7
+            Text: =ThisItem.Result
+            Width: =153
+            ZIndex: =1
+
+        Label9_25 As label:
+            Align: =Align.Center
+            Color: =RGBA(0, 13, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            PaddingTop: =2
+            Size: =21
+            Text: ="🢒"
+            Visible: =If(ThisItem.IsSelected, true, false)
+            Width: =24
+            X: =129
+            ZIndex: =3
+
+        Rectangle1_35 As rectangle:
+            DisabledFill: =Rectangle1_35.Fill
+            Fill: =RGBA(0, 13, 75, 1)
+            Height: =50
+            HoverFill: =Rectangle1_35.Fill
+            OnSelect: =Select(Parent)
+            PressedFill: =Rectangle1_35.Fill
+            Width: =1
+            ZIndex: =4
+
+    Gallery2_50 As gallery.galleryVertical:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =Switch(true, ShowPilalrs, 293, 458)
+        Items: |-
+            =Filter(ForAll(Distinct(Filter(Col_ProcList, PHASE = "Approvals" && Len(PHASE)> 0), PILLAR), {Result: ThisRecord.Value}),!IsBlank(Result))
+        Layout: =Layout.Vertical
+        Selectable: =false
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =53
+        Transition: =Transition.Push
+        Visible: =If(ToggleThis, true, false)
+        Width: =153
+        X: =352
+        Y: =Switch(true, ShowPilalrs, 262, 97   )
+        ZIndex: =27
+
+        Button2_66 As button:
+            Align: =Align.Left
+            BorderColor: =ColorFade(Button2_66.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(116, 116, 116, 1)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Edit //If(ThisItem.IsSelected, Edit, Disabled)
+            Fill: =RGBA(227, 243, 250, 1)
+            Height: =50
+            HoverBorderColor: =ColorFade(Button2_66.BorderColor, 20%)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            Italic: =true
+            OnSelect: |-
+                =UpdateContext({GalleryA: Gallery2_50.Selected.Result})
+            PressedBorderColor: =Button2_66.Fill
+            PressedColor: =Button2_66.Fill
+            PressedFill: =Button2_66.Color
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =7
+            Text: =ThisItem.Result
+            Width: =153
+            ZIndex: =1
+
+        Label9_26 As label:
+            Align: =Align.Center
+            Color: =RGBA(0, 13, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            PaddingTop: =2
+            Size: =21
+            Text: ="🢒"
+            Visible: =If(ThisItem.IsSelected, true, false)
+            Width: =24
+            X: =129
+            ZIndex: =3
+
+        Rectangle1_36 As rectangle:
+            DisabledFill: =Rectangle1_36.Fill
+            Fill: =RGBA(0, 13, 75, 1)
+            Height: =50
+            HoverFill: =Rectangle1_36.Fill
+            OnSelect: =Select(Parent)
+            PressedFill: =Rectangle1_36.Fill
+            Width: =1
+            ZIndex: =4
+
+    Gallery2_51 As gallery.galleryVertical:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =Switch(true, ShowPilalrs, 293, 458)
+        Items: |-
+            =Filter(ForAll(Distinct(Filter(Col_ProcList, PHASE = "Pre-Construction" && Len(PHASE)> 0), PILLAR), {Result: ThisRecord.Value}), !IsBlank(Result))
+            //Procedure_List
+        Layout: =Layout.Vertical
+        Selectable: =false
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =53
+        Transition: =Transition.Push
+        Visible: =If(ToggleThis, true, false)
+        Width: =153
+        X: =508
+        Y: =Switch(true, ShowPilalrs, 262, 97   )
+        ZIndex: =28
+
+        Button2_67 As button:
+            Align: =Align.Left
+            BorderColor: =ColorFade(Button2_67.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(116, 116, 116, 1)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Edit //If(ThisItem.IsSelected, Edit, Disabled)
+            Fill: =RGBA(227, 243, 250, 1)
+            Height: =50
+            HoverBorderColor: =ColorFade(Button2_67.BorderColor, 20%)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            Italic: =true
+            OnSelect: |-
+                =UpdateContext({GalleryA: Gallery2_51.Selected.Result})
+            PressedBorderColor: =Button2_67.Fill
+            PressedColor: =Button2_67.Fill
+            PressedFill: =Button2_67.Color
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =7
+            Text: =ThisItem.Result
+            Width: =153
+            ZIndex: =1
+
+        Label9_27 As label:
+            Align: =Align.Center
+            Color: =RGBA(0, 13, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            PaddingTop: =2
+            Size: =21
+            Text: ="🢒"
+            Visible: =If(ThisItem.IsSelected, true, false)
+            Width: =24
+            X: =129
+            ZIndex: =3
+
+        Rectangle1_37 As rectangle:
+            DisabledFill: =Rectangle1_37.Fill
+            Fill: =RGBA(0, 13, 75, 1)
+            Height: =50
+            HoverFill: =Rectangle1_37.Fill
+            OnSelect: =Select(Parent)
+            PressedFill: =Rectangle1_37.Fill
+            Width: =1
+            ZIndex: =4
+
+    Gallery2_52 As gallery.galleryVertical:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =Switch(true, ShowPilalrs, 293, 458)
+        Items: |-
+            =Filter(ForAll(Distinct(Filter(Col_ProcList, PHASE = "Construction" && Len(PHASE)> 0), PILLAR), {Result: ThisRecord.Value}), !IsBlank(Result))
+            //Procedure_List
+        Layout: =Layout.Vertical
+        Selectable: =false
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =53
+        Transition: =Transition.Push
+        Visible: =If(ToggleThis, true, false)
+        Width: =153
+        X: =664
+        Y: =Switch(true, ShowPilalrs, 262, 97   )
+        ZIndex: =29
+
+        Button2_68 As button:
+            Align: =Align.Left
+            BorderColor: =ColorFade(Button2_68.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(116, 116, 116, 1)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Edit //If(ThisItem.IsSelected, Edit, Disabled)
+            Fill: =RGBA(227, 243, 250, 1)
+            Height: =50
+            HoverBorderColor: =ColorFade(Button2_68.BorderColor, 20%)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            Italic: =true
+            OnSelect: |-
+                =UpdateContext({GalleryA: Gallery2_52.Selected.Result})
+            PressedBorderColor: =Button2_68.Fill
+            PressedColor: =Button2_68.Fill
+            PressedFill: =Button2_68.Color
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =7
+            Text: =ThisItem.Result
+            Width: =153
+            ZIndex: =1
+
+        Label9_28 As label:
+            Align: =Align.Center
+            Color: =RGBA(0, 13, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            PaddingTop: =2
+            Size: =21
+            Text: ="🢒"
+            Visible: =If(ThisItem.IsSelected, true, false)
+            Width: =24
+            X: =129
+            ZIndex: =3
+
+        Rectangle1_38 As rectangle:
+            DisabledFill: =Rectangle1_38.Fill
+            Fill: =RGBA(0, 13, 75, 1)
+            Height: =50
+            HoverFill: =Rectangle1_38.Fill
+            OnSelect: =Select(Parent)
+            PressedFill: =Rectangle1_38.Fill
+            Width: =1
+            ZIndex: =4
+
+    Gallery2_53 As gallery.galleryVertical:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =Switch(true, ShowPilalrs, 293, 458)
+        Items: |-
+            =Filter(ForAll(Distinct(Filter(Col_ProcList, PHASE = "Procurement" && Len(PHASE)> 0), PILLAR), {Result: ThisRecord.Value}), !IsBlank(Result))
+            //Procedure_List
+        Layout: =Layout.Vertical
+        Selectable: =false
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =53
+        Transition: =Transition.Push
+        Visible: =If(ToggleThis, true, false)
+        Width: =153
+        X: =820
+        Y: =Switch(true, ShowPilalrs, 262, 97   )
+        ZIndex: =30
+
+        Button2_69 As button:
+            Align: =Align.Left
+            BorderColor: =ColorFade(Button2_69.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(116, 116, 116, 1)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Edit //If(ThisItem.IsSelected, Edit, Disabled)
+            Fill: =RGBA(227, 243, 250, 1)
+            Height: =50
+            HoverBorderColor: =ColorFade(Button2_69.BorderColor, 20%)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            Italic: =true
+            OnSelect: |-
+                =UpdateContext({GalleryA: Gallery2_53.Selected.Result})
+            PressedBorderColor: =Button2_69.Fill
+            PressedColor: =Button2_69.Fill
+            PressedFill: =Button2_69.Color
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =7
+            Text: =ThisItem.Result
+            Width: =153
+            ZIndex: =1
+
+        Label9_29 As label:
+            Align: =Align.Center
+            Color: =RGBA(0, 13, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            PaddingTop: =2
+            Size: =21
+            Text: ="🢒"
+            Visible: =If(ThisItem.IsSelected, true, false)
+            Width: =24
+            X: =129
+            ZIndex: =3
+
+        Rectangle1_39 As rectangle:
+            DisabledFill: =Rectangle1_39.Fill
+            Fill: =RGBA(0, 13, 75, 1)
+            Height: =50
+            HoverFill: =Rectangle1_39.Fill
+            OnSelect: =Select(Parent)
+            PressedFill: =Rectangle1_39.Fill
+            Width: =1
+            ZIndex: =4
+
+    Gallery2_54 As gallery.galleryVertical:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =Switch(true, ShowPilalrs, 293, 458)
+        Items: |-
+            =Filter(ForAll(Distinct(Filter(Col_ProcList, PHASE = "Post-Construction" && Len(PHASE)> 0), PILLAR), {Result: ThisRecord.Value}),!IsBlank(Result))
+            //Procedure_List
+        Layout: =Layout.Vertical
+        Selectable: =false
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =53
+        Transition: =Transition.Push
+        Visible: =If(ToggleThis, true, false)
+        Width: =153
+        X: =976
+        Y: =Switch(true, ShowPilalrs, 262, 97   )
+        ZIndex: =31
+
+        Button2_70 As button:
+            Align: =Align.Left
+            BorderColor: =ColorFade(Button2_70.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(116, 116, 116, 1)
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            DisplayMode: =DisplayMode.Edit //If(ThisItem.IsSelected, Edit, Disabled)
+            Fill: =RGBA(227, 243, 250, 1)
+            Height: =50
+            HoverBorderColor: =ColorFade(Button2_70.BorderColor, 20%)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =RGBA(255, 255, 255, 1)
+            Italic: =true
+            OnSelect: |-
+                =UpdateContext({GalleryA: Gallery2_54.Selected.Result})
+            PressedBorderColor: =Button2_70.Fill
+            PressedColor: =Button2_70.Fill
+            PressedFill: =Button2_70.Color
+            RadiusBottomLeft: =4
+            RadiusBottomRight: =4
+            RadiusTopLeft: =4
+            RadiusTopRight: =4
+            Size: =7
+            Text: =ThisItem.Result
+            Width: =153
+            ZIndex: =1
+
+        Label9_30 As label:
+            Align: =Align.Center
+            Color: =RGBA(0, 13, 75, 1)
+            Height: =33
+            OnSelect: =Select(Parent)
+            PaddingTop: =2
+            Size: =21
+            Text: ="🢒"
+            Visible: =If(ThisItem.IsSelected, true, false)
+            Width: =24
+            X: =129
+            ZIndex: =3
+
+        Rectangle1_40 As rectangle:
+            DisabledFill: =Rectangle1_40.Fill
+            Fill: =RGBA(0, 13, 75, 1)
+            Height: =50
+            HoverFill: =Rectangle1_40.Fill
+            OnSelect: =Select(Parent)
+            PressedFill: =Rectangle1_40.Fill
+            Width: =1
+            ZIndex: =4
+
+    Icon1_7 As icon.Waffle:
+        Color: =RGBA(116, 116, 116, 1)
+        DisabledFill: =Icon1_7.Fill
+        Height: =20
+        HoverBorderColor: =ColorFade(Icon1_7.BorderColor, 20%)
+        HoverColor: =ColorFade(Icon1_7.Color, 20%)
+        HoverFill: =Icon1_7.Fill
+        Icon: =Icon.Home
+        OnSelect: |
+            =//Set(ToggleThis, true);
+            Clear(SearchResult);Navigate('IMS Library_3', ScreenTransition.Fade);
+        PressedBorderColor: =ColorFade(Icon1_7.BorderColor, -20%)
+        PressedColor: =ColorFade(Icon1_7.Color, -20%)
+        PressedFill: =Icon1_7.Fill
+        Tooltip: ="Switch to CAPEX Process Framework View"
+        Width: =24
+        X: =10
+        Y: =87
+        ZIndex: =32
+
+    Button4_32 As button:
+        Align: =Align.Left
+        BorderColor: =
+        BorderThickness: =1
+        DisabledColor: =RGBA(237, 237, 237, 1)
+        DisabledFill: =RGBA(3, 19, 82, 1)
+        DisplayMode: =DisplayMode.Disabled
+        Fill: =RGBA(45, 78, 143, 1)
+        Height: =21
+        HoverBorderColor: =ColorFade(Button4_32.BorderColor, 20%)
+        PressedBorderColor: =Button4_32.Fill
+        PressedColor: =Button4_32.Fill
+        PressedFill: =Button4_32.Color
+        RadiusBottomLeft: =3
+        RadiusBottomRight: =3
+        RadiusTopLeft: =3
+        RadiusTopRight: =3
+        Size: =8
+        Text: |-
+            ="Measurement and Monitoring, Integration: (CAPEX Data Management; CAPEX dashboard development and maintenance; Data-based reporting, Monitoring and Analytics; Policy Aligmement)"
+        Width: =1125
+        X: =5
+        Y: =560
+        ZIndex: =33
+
+    Button4_33 As button:
+        BorderColor: =
+        BorderThickness: =1
+        DisabledColor: =RGBA(237, 237, 237, 1)
+        DisabledFill: =RGBA(3, 19, 82, 1)
+        DisplayMode: =DisplayMode.Disabled
+        Fill: =RGBA(45, 78, 143, 1)
+        Height: =21
+        HoverBorderColor: =ColorFade(Button4_33.BorderColor, 20%)
+        PressedBorderColor: =Button4_33.Fill
+        PressedColor: =Button4_33.Fill
+        PressedFill: =Button4_33.Color
+        RadiusBottomLeft: =3
+        RadiusBottomRight: =3
+        RadiusTopLeft: =3
+        RadiusTopRight: =3
+        Size: =8
+        Text: ="Talent and Capability (Training, Awareness)"
+        Width: =1125
+        X: =5
+        Y: =583
+        ZIndex: =34
+
+    Icon2_7 As icon.View:
+        Color: =RGBA(116, 116, 116, 1)
+        DisabledFill: =Icon2_7.Fill
+        Height: =20
+        HoverBorderColor: =ColorFade(Icon2_7.BorderColor, 20%)
+        HoverColor: =ColorFade(Icon2_7.Color, 20%)
+        HoverFill: =Icon2_7.Fill
+        Icon: =Icon.View
+        OnSelect: |
+            =If(ShowPilalrs, Set(ShowPilalrs, false), Set(ShowPilalrs, true))
+        PressedBorderColor: =ColorFade(Icon2_7.BorderColor, -20%)
+        PressedColor: =ColorFade(Icon2_7.Color, -20%)
+        PressedFill: =Icon2_7.Fill
+        Visible: =false
+        Width: =10
+        X: =100
+        ZIndex: =35
+
+    Label3_39 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =37
+        Size: =10
+        Text: =ThisHypPic.HyperPic3
+        Visible: =false
+        Width: =71
+        X: =665
+        Y: =9
+        ZIndex: =36
+
+    TextInput1_5 As text:
+        BorderColor: =RGBA(179, 179, 179, 1)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =1
+        Default: =""
+        Fill: =RGBA(230, 230, 230, 1)
+        Height: =23
+        HintText: ="Search..."
+        OnChange: |-
+            =UpdateContext({InputVar: TextInput1_5.Text});
+            Select(Button6_3)
+        OnSelect: =
+        PaddingLeft: =25
+        PaddingRight: =25
+        PressedBorderColor: =TextInput1_5.HoverBorderColor
+        PressedColor: =TextInput1_5.Color
+        PressedFill: =TextInput1_5.Fill
+        RadiusBottomLeft: =3
+        RadiusBottomRight: =3
+        RadiusTopLeft: =3
+        RadiusTopRight: =3
+        Size: =8
+        Width: =455
+        X: =677
+        Y: =55
+        ZIndex: =37
+
+    Dropdown1_2 As dropdown:
+        BorderColor: =RGBA(0, 0, 0, 0)
+        BorderThickness: =1
+        ChevronBackground: =RGBA(0, 0, 0, 0)
+        ChevronFill: =RGBA(39, 67, 125, 1)
+        ChevronHoverBackground: =RGBA(45, 78, 143, 1)
+        Fill: =RGBA(230, 230, 230, 1)
+        Height: =23
+        HoverBorderColor: =ColorFade(Dropdown1_2.BorderColor, 15%)
+        HoverFill: =RGBA(219, 219, 219, 1)
+        Items: |-
+            =ForAll(Distinct(Col_ProcList, GROUP), {Result: ThisRecord.Value})
+        PressedBorderColor: =Dropdown1_2.HoverBorderColor
+        SelectionColor: =RGBA(0, 0, 0, 1)
+        SelectionFill: =RGBA(175, 191, 224, 1)
+        Size: =9
+        Width: =277
+        X: =396
+        Y: =55
+        ZIndex: =38
+
+    Icon3_12 As icon.Search:
+        Color: =RGBA(128, 128, 128, 1)
+        DisabledFill: =Icon3_12.Fill
+        Height: =15
+        HoverBorderColor: =ColorFade(Icon3_12.BorderColor, 20%)
+        HoverColor: =ColorFade(Icon3_12.Color, 20%)
+        HoverFill: =Icon3_12.Fill
+        Icon: =Icon.Search
+        PressedBorderColor: =ColorFade(Icon3_12.BorderColor, -20%)
+        PressedColor: =ColorFade(Icon3_12.Color, -20%)
+        PressedFill: =Icon3_12.Fill
+        Visible: =If(Icon3_13.Visible, false, true)
+        Width: =15
+        X: =679
+        Y: =60
+        ZIndex: =39
+
+    Icon3_13 As icon.Search:
+        Color: =RGBA(128, 128, 128, 1)
+        DisabledFill: =Icon3_13.Fill
+        Height: =15
+        HoverBorderColor: =ColorFade(Icon3_13.BorderColor, 20%)
+        HoverColor: =ColorFade(Icon3_13.Color, 20%)
+        HoverFill: =Icon3_13.Fill
+        Icon: =Icon.Cancel
+        OnSelect: |-
+            =Reset(TextInput1_5); UpdateContext({InputVar: ""})
+        PressedBorderColor: =ColorFade(Icon3_13.BorderColor, -20%)
+        PressedColor: =ColorFade(Icon3_13.Color, -20%)
+        PressedFill: =Icon3_13.Fill
+        Visible: =If(Len(TextInput1_5.Text) < 1, false, true)
+        Width: =15
+        X: =679
+        Y: =60
+        ZIndex: =40
+
+    Button4_4 As button:
+        Align: =Align.Left
+        BorderColor: =ColorFade(Button4_4.Fill, -15%)
+        BorderStyle: =BorderStyle.None
+        DisabledColor: =RGBA(237, 237, 237, 1)
+        DisabledFill: =RGBA(93, 121, 179, 1)
+        DisplayMode: =DisplayMode.Disabled
+        Fill: =RGBA(94, 120, 171, 1)
+        Height: =26
+        HoverBorderColor: =ColorFade(Button4_4.BorderColor, 20%)
+        PressedBorderColor: =Button4_4.Fill
+        PressedColor: =Button4_4.Fill
+        PressedFill: =Button4_4.Color
+        RadiusBottomLeft: =3
+        RadiusBottomRight: =3
+        RadiusTopLeft: =3
+        RadiusTopRight: =3
+        Size: =9
+        Text: |-
+            ="Navigation: Group / Departmental View"
+        Width: =394
+        Y: =51
+        ZIndex: =41
+
+    Rectangle1_33 As rectangle:
+        DisabledFill: =Rectangle1_33.Fill
+        Fill: =RGBA(3, 19, 82, 1)
+        FocusedBorderColor: =Rectangle1_33.BorderColor
+        Height: =53
+        HoverFill: =Rectangle1_33.Fill
+        PressedFill: =Rectangle1_33.Fill
+        Width: =1136
+        ZIndex: =42
+
+    Icon6_2 As icon.BackArrow:
+        Color: =RGBA(237, 237, 237, 1)
+        DisabledFill: =Icon6_2.Fill
+        Height: =34
+        HoverBorderColor: =ColorFade(Icon6_2.BorderColor, 20%)
+        HoverColor: =ColorFade(Icon6_2.Color, 20%)
+        HoverFill: =Icon6_2.Fill
+        Icon: =Icon.BackArrow
+        OnSelect: |-
+            =Reset(TextInput1_5);UpdateContext({InputVar: Blank()}); // <-- Reset Search input field
+            Select(Icon1_7)
+        PressedBorderColor: =ColorFade(Icon6_2.BorderColor, -20%)
+        PressedColor: =ColorFade(Icon6_2.Color, -20%)
+        PressedFill: =Icon6_2.Fill
+        Width: =34
+        X: =10
+        Y: =9
+        ZIndex: =43
+
+    Image4_6 As image:
+        BorderColor: =RGBA(230, 230, 230, 1)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =4
+        Height: =40
+        HoverBorderColor: =ColorFade(Image4_6.BorderColor, 20%)
+        HoverFill: =ColorFade(Image4_6.Fill, 20%)
+        Image: =logout
+        OnSelect: =Exit()
+        PressedBorderColor: =ColorFade(Image4_6.BorderColor, -20%)
+        PressedFill: =ColorFade(Image4_6.Fill, -20%)
+        Tooltip: ="Logout"
+        Width: =39
+        X: =1089
+        Y: =7
+        ZIndex: =44
+
+    Label2_20 As label:
+        Color: =RGBA(255, 255, 255, 1)
+        FocusedBorderColor: =Label2_20.BorderColor
+        Font: =Font.'Segoe UI'
+        FontWeight: =FontWeight.Bold
+        Height: =25
+        HoverBorderColor: =Label2_20.BorderColor
+        HoverColor: =Label2_20.Color
+        HoverFill: =Label2_20.Fill
+        OnSelect: =
+        PressedBorderColor: =Label2_20.BorderColor
+        PressedColor: =Label2_20.Color
+        PressedFill: =Label2_20.Fill
+        Size: =15
+        Text: ="CAPEX PROCESS KNOWLEDGE LIBRARY"
+        Tooltip: ="Home"
+        Width: =388
+        X: =383
+        Y: =15
+        ZIndex: =45
+
+    Button6_3 As button:
+        BorderColor: =ColorFade(Button6_3.Fill, -15%)
+        Height: =31
+        HoverBorderColor: =ColorFade(Button6_3.BorderColor, 20%)
+        OnSelect: |-
+            =Clear(SearchResult);
+            Collect(SearchResult, AddColumns(RenameColumns(ForAll(Distinct(Filter(Col_ProcList, GROUP = Dropdown1_2.Selected.Result), 'PROCEDURE '), {Result: ThisRecord.Value}), "Result", "FileN"), "dType", "procedure"));
+            Collect(SearchResult, AddColumns(RenameColumns(ForAll(Distinct(Filter(Col_ProcList, GROUP = Dropdown1_2.Selected.Result), 'FORMS/TEMPLATES'), {Result: ThisRecord.Value}), "Result", "FileN"), "dType", "forms"));
+            Collect(SearchResult, AddColumns(RenameColumns(ForAll(Distinct(Filter(Col_ProcList, GROUP = Dropdown1_2.Selected.Result), GUIDELINES), {Result: ThisRecord.Value}), "Result", "FileN"), "dType", "guidelines"))
+        PressedBorderColor: =Button6_3.Fill
+        PressedColor: =Button6_3.Fill
+        PressedFill: =Button6_3.Color
+        RadiusBottomLeft: =8
+        RadiusBottomRight: =8
+        RadiusTopLeft: =8
+        RadiusTopRight: =8
+        Size: =8
+        Text: =""
+        Visible: =false
+        Width: =126
+        X: =557
+        Y: =12
+        ZIndex: =46
+
+    Button3_4 As button:
+        BorderColor: =ColorFade(Button3_4.Fill, -15%)
+        Height: =17
+        HoverBorderColor: =ColorFade(Button3_4.BorderColor, 20%)
+        OnSelect: |-
+            =//If(!FirstRun, UpdateContext({xSelectedMenuTitle: "Concept/Planning"}); Set(FirstRun, true))
+            UpdateContext({xSelectedMenuTitle: Blank(), xSelectedDeptTitle: First(Col_DeptTable).Dept, xSelectedSysDep: First(Col_DepSP_Table).Title})
+        PressedBorderColor: =Button3_4.Fill
+        PressedColor: =Button3_4.Fill
+        PressedFill: =Button3_4.Color
+        Size: =24
+        Text: ="Button3_1"
+        Visible: =false
+        Width: =81
+        X: =846
+        Y: =7
+        ZIndex: =50
+
+    Button2_71 As button:
+        BorderColor: =ColorFade(Button2_71.Fill, -15%)
+        FontWeight: =FontWeight.Normal
+        Height: =32
+        HoverBorderColor: =ColorFade(Button2_71.BorderColor, 20%)
+        OnSelect: |-
+            =Refresh(Pillars_reference);Refresh(Procedure_List_1);
+            ClearCollect(Col_ProcList, AddColumns(Procedure_List_1, "Pillar", ""));
+            ClearCollect(Col_PillarReference, RenameColumns(Pillars_reference, "Title", "Pillar"))
+        PressedBorderColor: =Button2_71.Fill
+        PressedColor: =Button2_71.Fill
+        PressedFill: =Button2_71.Color
+        Size: =8
+        Text: ="Button2_12"
+        Visible: =false
+        Width: =128
+        X: =812
+        Y: =30
+        ZIndex: =51
+
+    Label7_6 As label:
+        Align: =Align.Center
+        Color: =RGBA(179, 179, 179, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =18
+        Size: =8
+        Text: ="No item to show"
+        Visible: =If(CountRows(Gallery2_58.AllItems)>0, false, true) 
+        Width: =202
+        X: =458
+        Y: =307
+        ZIndex: =52
+
+    Label7_7 As label:
+        Align: =Align.Center
+        Color: =RGBA(179, 179, 179, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =18
+        Size: =8
+        Text: ="No item to show"
+        Visible: =If(CountRows(Gallery2_59.AllItems)>0, false, true)
+        Width: =202
+        X: =835
+        Y: =307
+        ZIndex: =53
+
+    Debug_2 As group:
+        Height: =5
+        Width: =5
+        X: =120
+        Y: =120
+        ZIndex: =57
+
+        Label11_7 As label:
+            Fill: =RGBA(255, 255, 0, 1)
+            Height: =28
+            Size: =10
+            Text: ="SelectedDeptTitle "&xSelectedDeptTitle
+            Visible: =false
+            Width: =263
+            X: =762
+            Y: =376
+            ZIndex: =47
+
+        Label11_6 As label:
+            Fill: =RGBA(255, 255, 0, 1)
+            Height: =23
+            Size: =10
+            Text: |-
+                ="SelectedMenuTitle: "& xSelectedMenuTitle
+            Visible: =false
+            Width: =263
+            X: =762
+            Y: =340
+            ZIndex: =48
+
+        Label11_8 As label:
+            Fill: =RGBA(255, 255, 0, 1)
+            Height: =29
+            Size: =10
+            Text: |-
+                ="SysDep: "& xSelectedSysDep
+            Visible: =false
+            Width: =263
+            X: =762
+            Y: =419
+            ZIndex: =49
+
+    Group4_3 As group:
+        Height: =5
+        Width: =5
+        X: =120
+        Y: =120
+        ZIndex: =79
+
+        Rectangle2_7 As rectangle:
+            DisabledFill: =Rectangle2_7.Fill
+            Fill: =RGBA(0, 0, 0, 0.57)
+            Height: =559
+            HoverFill: =Rectangle2_7.Fill
+            PressedFill: =Rectangle2_7.Fill
+            Visible: =If(Len(InputVar) < 1, false, true)
+            Width: =1136
+            Y: =81
+            ZIndex: =54
+
+        Button7_6 As button:
+            BorderColor: =ColorFade(Button7_6.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =554
+            HoverBorderColor: =ColorFade(Button7_6.BorderColor, 20%)
+            PressedBorderColor: =Button7_6.Fill
+            PressedColor: =Button7_6.Fill
+            PressedFill: =Button7_6.Color
+            RadiusBottomLeft: =3
+            RadiusBottomRight: =3
+            RadiusTopLeft: =3
+            RadiusTopRight: =3
+            Size: =24
+            Text: =""
+            Visible: =If(Len(InputVar) < 1, false, true)
+            Width: =1127
+            X: =5
+            Y: =83
+            ZIndex: =55
+
+        "Gallery1_3 As gallery.'BrowseLayout_Vertical_OneTextVariant_ver4.0'":
+            Height: =530
+            Items: =Search(SortByColumns(SearchResult, "FileN", SortOrder.Ascending), TextInput1_5.Text, "FileN") 
+            Layout: =Layout.Vertical
+            OnSelect: |
+                =Switch(true,
+                Or(ThisItem.dType = "forms", ThisItem.dType = "guidelines"), Download("https://manilawater.sharepoint.com/sites/ContinousImprovement/PDF Repo/"& ThisItem.FileN),
+                Set(ThisHypPic3, First(Filter(Col_ProcList, 'PROCEDURE ' = ThisItem.FileN)));
+                Navigate(HYPIC3, ScreenTransition.Fade, {ThisImageLink: Label3_23.Text}));
+                Reset(TextInput1_5);UpdateContext({InputVar: Blank()}) // <-- Reset Search input field
+            ShowScrollbar: =false
+            TemplatePadding: =1
+            TemplateSize: =21
+            Transition: =Transition.Pop
+            Visible: =If(Len(InputVar) < 1, false, true)
+            Width: =833
+            X: =20
+            Y: =103
+            ZIndex: =56
+
+            Title2_6 As label:
+                Color: =RGBA(116, 116, 116, 1)
+                FontWeight: =FontWeight.Normal
+                Height: =19
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =8
+                Text: =ThisItem.FileN
+                Width: =615
+                Wrap: =false
+                X: =25
+                ZIndex: =1
+
+            Title2_7 As label:
+                Color: =RGBA(116, 116, 116, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Lighter
+                Height: =19
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =7.5
+                Text: |-
+                    ="doc type: " & ThisItem.dType
+                Width: =165
+                Wrap: =false
+                X: =660
+                ZIndex: =3
+
+            Icon4_3 As icon.Document:
+                Color: =RGBA(153, 153, 153, 1)
+                DisabledFill: =Icon4_3.Fill
+                Height: =19
+                HoverBorderColor: =ColorFade(Icon4_3.BorderColor, 20%)
+                HoverColor: =ColorFade(Icon4_3.Color, 20%)
+                HoverFill: =Icon4_3.Fill
+                Icon: =Icon.Document
+                OnSelect: =Select(Parent)
+                PressedBorderColor: =ColorFade(Icon4_3.BorderColor, -20%)
+                PressedColor: =ColorFade(Icon4_3.Color, -20%)
+                PressedFill: =Icon4_3.Fill
+                Width: =19
+                X: =5
+                ZIndex: =4
+
+        Label4_3 As label:
+            Color: =RGBA(116, 116, 116, 1)
+            Fill: =RGBA(230, 230, 230, 1)
+            Height: =16
+            Size: =8
+            Text: ="Search result... "  & CountRows(Gallery1_3.AllItems) & " hits"
+            Visible: =If(Len(InputVar) < 1, false, true)
+            Width: =1125
+            X: =6
+            Y: =85
+            ZIndex: =57
+
+        Rectangle2_6 As rectangle:
+            DisabledFill: =Rectangle2_6.Fill
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =29
+            HoverFill: =Rectangle2_6.Fill
+            PressedFill: =Rectangle2_6.Fill
+            Visible: =If(Len(InputVar) < 1, false, true)
+            Width: =277
+            X: =397
+            Y: =53
+            ZIndex: =58
+

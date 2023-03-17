@@ -1,0 +1,214 @@
+Screen1 As screen:
+
+    Label6 As label:
+        Fill: =RGBA(237, 237, 237, 1)
+        FontWeight: =FontWeight.Bold
+        Height: =23
+        Size: =10
+        Text: ="Maintenance"
+        Width: =1136
+        ZIndex: =1
+
+    TextInput1_4 As text:
+        BorderColor: =RGBA(179, 179, 179, 1)
+        BorderStyle: =BorderStyle.None
+        BorderThickness: =1
+        Default: =""
+        Fill: =RGBA(230, 230, 230, 1)
+        Height: =23
+        HintText: ="Search..."
+        OnChange: |-
+            =UpdateContext({InputVar2: TextInput1_4.Text});
+            Select(Button6_2)
+        OnSelect: =
+        PaddingLeft: =25
+        PaddingRight: =25
+        PressedBorderColor: =TextInput1_4.HoverBorderColor
+        PressedColor: =TextInput1_4.Color
+        PressedFill: =TextInput1_4.Fill
+        RadiusBottomLeft: =2
+        RadiusBottomRight: =2
+        RadiusTopLeft: =2
+        RadiusTopRight: =2
+        Size: =8
+        Width: =455
+        X: =5
+        Y: =26
+        ZIndex: =7
+
+    Group4_2 As group:
+        Height: =5
+        Width: =5
+        X: =120
+        Y: =120
+        ZIndex: =7
+
+        Rectangle2_5 As rectangle:
+            DisabledFill: =Rectangle2_5.Fill
+            Fill: =RGBA(0, 0, 0, 0.57)
+            Height: =559
+            HoverFill: =Rectangle2_5.Fill
+            PressedFill: =Rectangle2_5.Fill
+            Visible: =true //If(Len(InputVar2) < 1, false, true)
+            Width: =1136
+            Y: =81
+            ZIndex: =2
+
+        Button7_2 As button:
+            BorderColor: =ColorFade(Button7_2.Fill, -15%)
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(255, 255, 255, 1)
+            DisplayMode: =DisplayMode.Disabled
+            Height: =554
+            HoverBorderColor: =ColorFade(Button7_2.BorderColor, 20%)
+            PressedBorderColor: =Button7_2.Fill
+            PressedColor: =Button7_2.Fill
+            PressedFill: =Button7_2.Color
+            RadiusBottomLeft: =3
+            RadiusBottomRight: =3
+            RadiusTopLeft: =3
+            RadiusTopRight: =3
+            Size: =24
+            Text: =""
+            Visible: =true //If(Len(InputVar2) < 1, false, true)
+            Width: =1127
+            X: =5
+            Y: =83
+            ZIndex: =3
+
+        "Gallery1_2 As gallery.'BrowseLayout_Vertical_OneTextVariant_ver4.0'":
+            Height: =530
+            Items: =Search(SortByColumns(SearchResult, "FileN", SortOrder.Ascending), TextInput1_3.Text, "FileN") 
+            Layout: =Layout.Vertical
+            OnSelect: |
+                =Switch(true,
+                Or(ThisItem.dType = "forms", ThisItem.dType = "guidelines"), Download("https://manilawater.sharepoint.com/sites/ContinousImprovement/PDF Repo/"& ThisItem.FileN),
+                Set(ThisHypPic3, First(Filter(Col_ProcList, 'PROCEDURE ' = ThisItem.FileN)));
+                Navigate(HYPIC3, ScreenTransition.Fade, {ThisImageLink: Label3_23.Text}));
+                Reset(TextInput1_3);UpdateContext({InputVar: Blank()}) // <-- Reset Search input field
+            ShowScrollbar: =false
+            TemplatePadding: =1
+            TemplateSize: =21
+            Transition: =Transition.Pop
+            Visible: =true //If(Len(InputVar2) < 1, false, true)
+            Width: =833
+            X: =20
+            Y: =103
+            ZIndex: =4
+
+            Title2_4 As label:
+                Color: =RGBA(116, 116, 116, 1)
+                FontWeight: =FontWeight.Normal
+                Height: =19
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =8
+                Text: =ThisItem.FileN
+                Width: =615
+                Wrap: =false
+                X: =25
+                ZIndex: =1
+
+            Title2_5 As label:
+                Color: =RGBA(116, 116, 116, 1)
+                Font: =Font.Arial
+                FontWeight: =FontWeight.Lighter
+                Height: =19
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =7.5
+                Text: |-
+                    ="doc type: " & ThisItem.dType
+                Width: =165
+                Wrap: =false
+                X: =660
+                ZIndex: =3
+
+            Icon4_2 As icon.Document:
+                Color: =RGBA(153, 153, 153, 1)
+                DisabledFill: =Icon4_2.Fill
+                Height: =19
+                HoverBorderColor: =ColorFade(Icon4_2.BorderColor, 20%)
+                HoverColor: =ColorFade(Icon4_2.Color, 20%)
+                HoverFill: =Icon4_2.Fill
+                Icon: =Icon.Document
+                OnSelect: =Select(Parent)
+                PressedBorderColor: =ColorFade(Icon4_2.BorderColor, -20%)
+                PressedColor: =ColorFade(Icon4_2.Color, -20%)
+                PressedFill: =Icon4_2.Fill
+                Width: =19
+                X: =5
+                ZIndex: =4
+
+        Label4_2 As label:
+            Color: =RGBA(116, 116, 116, 1)
+            Fill: =RGBA(230, 230, 230, 1)
+            Height: =16
+            Size: =8
+            Text: ="Search result... "  & CountRows(Gallery1_2.AllItems) & " hits"
+            Visible: =true //If(Len(InputVar2) < 1, false, true)
+            Width: =1125
+            X: =6
+            Y: =85
+            ZIndex: =5
+
+        Rectangle2_4 As rectangle:
+            DisabledFill: =Rectangle2_4.Fill
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =29
+            HoverFill: =Rectangle2_4.Fill
+            PressedFill: =Rectangle2_4.Fill
+            Visible: =true //If(Len(InputVar2) < 1, false, true)
+            Width: =277
+            X: =397
+            Y: =53
+            ZIndex: =6
+
+    Icon3_11 As icon.Search:
+        Color: =RGBA(128, 128, 128, 1)
+        DisabledFill: =Icon3_11.Fill
+        Height: =15
+        HoverBorderColor: =ColorFade(Icon3_11.BorderColor, 20%)
+        HoverColor: =ColorFade(Icon3_11.Color, 20%)
+        HoverFill: =Icon3_11.Fill
+        Icon: =Icon.Cancel
+        OnSelect: |-
+            =Reset(TextInput1_4); UpdateContext({InputVar: ""})
+        PressedBorderColor: =ColorFade(Icon3_11.BorderColor, -20%)
+        PressedColor: =ColorFade(Icon3_11.Color, -20%)
+        PressedFill: =Icon3_11.Fill
+        Visible: =true //If(Len(TextInput1_4.Text) < 1, false, true)
+        Width: =15
+        X: =7
+        Y: =31
+        ZIndex: =8
+
+    Button6_2 As button:
+        BorderColor: =ColorFade(Button6_2.Fill, -15%)
+        Height: =23
+        HoverBorderColor: =ColorFade(Button6_2.BorderColor, 20%)
+        OnSelect: |-
+            =Clear(SearchResult);
+            Collect(SearchResult, AddColumns(RenameColumns(ForAll(Distinct(Filter(Col_ProcList, GROUP = Dropdown1_1.Selected.Result), 'PROCEDURE '), {Result: ThisRecord.Value}), "Result", "FileN"), "dType", "procedure"));
+            Collect(SearchResult, AddColumns(RenameColumns(ForAll(Distinct(Filter(Col_ProcList, GROUP = Dropdown1_1.Selected.Result), 'FORMS/TEMPLATES'), {Result: ThisRecord.Value}), "Result", "FileN"), "dType", "forms"));
+            Collect(SearchResult, AddColumns(RenameColumns(ForAll(Distinct(Filter(Col_ProcList, GROUP = Dropdown1_1.Selected.Result), GUIDELINES), {Result: ThisRecord.Value}), "Result", "FileN"), "dType", "guidelines"))
+        PressedBorderColor: =Button6_2.Fill
+        PressedColor: =Button6_2.Fill
+        PressedFill: =Button6_2.Color
+        RadiusBottomLeft: =2
+        RadiusBottomRight: =2
+        RadiusTopLeft: =2
+        RadiusTopRight: =2
+        Size: =8
+        Text: =""
+        Width: =126
+        X: =548
+        Y: =26
+        ZIndex: =9
+

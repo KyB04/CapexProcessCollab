@@ -1,0 +1,65 @@
+App As appinfo:
+    BackEnabled: =false
+    MinScreenHeight: =320
+    MinScreenWidth: =320
+    OnError: =
+    OnStart: |
+        =Set(DontRun, false);
+        Refresh(Procedure_List_1);
+        
+        Set(UserName, Trim(Office365Users.UserProfile(User().Email).DisplayName));
+        Set(UserEmail, Office365Users.MyProfile().Mail);
+        
+        ClearCollect(Col_ProcList, AddColumns(Procedure_List_1, "Pillar", ""));
+        ClearCollect(Col_PhaseTable, 
+        {Phase: "Concept/Planning", Order: 1},
+        {Phase: "Design and Costing", Order: 2},
+        {Phase: "Approvals", Order: 3},
+        {Phase: "Procurement", Order: 4},
+        {Phase: "Pre-Construction", Order: 5},
+        {Phase: "Construction", Order: 6},
+        {Phase: "Post-Construction", Order: 7}
+        );
+        
+        ClearCollect(Col_DeptTable, 
+        {Group: "PMG (Project Management Group)", Dept: "Project Management (PMD)", Order: 1},
+        {Group: "SAMG (Strategic Asset Management Group)", Dept: "Strategic Planning (STRT)", Order: 2},
+        {Group: "CFSG (Corporate Finance and Strategy Group)", Dept: "CFSG Concession Investment Accounting (CIA)", Order: 3},
+        {Group: "CPG (Corporate Procurement Group)", Dept: "Procurement", Order: 4},
+        {Group: "PMG (Project Management Group)", Dept: "Project Stakeholder Engagement (PSED) ", Order: 5},
+        {Group: "PMG (Project Management Group)", Dept: "Engineering (ENG) ", Order: 6},
+        {Group: "PMG (Project Management Group)", Dept: "Construction Management (CMD)", Order: 7},
+        {Group: "PMG (Project Management Group)", Dept: "Project Management Office (PMO)", Order: 8},
+        {Group: "PMG (Project Management Group)", Dept: "Quality Assurance (QAD)", Order: 9}
+        );
+        
+        ClearCollect(Col_DepSP_Table, 
+        {Title: "Department Procedure", Order: 1},
+        {Title: "System Procedure", Order: 2}
+        );
+        
+        ClearCollect(Col_Icons, Icons);
+        ClearCollect(Col_PDFRepo,AddColumns('PDF Repo', "PHASE", "", "PILAR", "", "DEPARTMENT", ""));
+        
+        
+        
+        //Initialize Var
+        Set(UserVar, User().FullName);
+        Set(ShowPilalrs, false);
+        Set(FirstRun, false);
+        Set(PhaseTitle, Blank());
+        Set(ProcTitle, Blank());
+        Set(ShowBelow, false);
+        
+        //Param direct link
+        Set(varScreenID, Value(Param("ScreenID")));
+        Switch(true,
+            varScreenID = 2, Navigate('IMS Library_3',BorderStyle.None),
+            varScreenID = 4, Navigate('IMS Library_4',BorderStyle.None),
+            varScreenID = 5, Navigate('IMS Library_5',BorderStyle.None),
+            varScreenID = 6, Navigate('IMS Library_6',BorderStyle.None),
+        
+            Navigate('Landing Page',BorderStyle.None)
+        )
+    StartScreen: =
+
